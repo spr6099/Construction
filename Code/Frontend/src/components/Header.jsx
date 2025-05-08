@@ -1,124 +1,122 @@
-import React, { useState } from "react";
-import Login from "./Login";
+import React from "react";
+import { Link } from "react-router-dom";
 
-function Header({ isScrolled, logins, setlogins }) {
-  const [menuOpen, setmenuOpen] = useState(false);
-  const toggleMenu = () => setmenuOpen(!menuOpen);
-
+function Header() {
+  const Logout = () => {
+    sessionStorage.clear();
+    setuser("");
+    navigate("/");
+  };
   return (
-    <nav
-      className={`navbar navbar-expand-lg navbar-dark navbar-custom fixed-top ${
-        isScrolled ? "top-nav-collapse" : ""
-      }`}
-    >
-      {" "}
-      {/* Image Logo */}
-      <a className="navbar-brand logo-image" href="index.html">
-        <img src="/assets/images/logo.svg" alt="alternative" />
-      </a>
-      {/* Mobile Menu Toggle Button */}
-      <button
-        className="navbar-toggler"
-        type="button"
-        onClick={toggleMenu}
-        data-toggle="collapse"
-        data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault"
-        aria-expanded={menuOpen}
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-awesome fas fa-bars"></span>
-        <span className="navbar-toggler-awesome fas fa-times"></span>
-      </button>
-      <div
-        className={`collapse navbar-collapse ${menuOpen ? "show" : ""} `}
-        id="navbarsExampleDefault"
-      >
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <a
-              className="nav-link page-scroll"
-              href="#register"
-              onClick={(e) => {
-                setTimeout(() => {
-                  setlogins(true);
-                }, 100); // delay just enough to let the scroll happen
-              }}
-            >
-              LOGIN
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link page-scroll"
-              href="#register"
-              onClick={(e) => {
-                setTimeout(() => {
-                  setlogins(false);
-                }, 100); // delay just enough to let the scroll happen
-              }}
-            >
-              REGISTER <span className="sr-only">(current)</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link page-scroll" href="#description">
-              DETAILS
-            </a>
-          </li>
-
-          {/* Dropdown Menu */}
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle page-scroll"
-              href="#date"
-              id="navbarDropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              DATE
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="article-details.html">
-                <span className="item-text">ARTICLE DETAILS</span>
-              </a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="terms-conditions.html">
-                <span className="item-text">TERMS CONDITIONS</span>
-              </a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="privacy-policy.html">
-                <span className="item-text">PRIVACY POLICY</span>
-              </a>
+    <div>
+      <div className="top-bar">
+        <div className="container-fluid">
+          <div className="row align-items-center">
+            <div className="col-lg-4 col-md-12">
+              <div className="logo">
+                <a>
+                  <h1>Builderz</h1>
+                  {/* <img src="img/logo.jpg" alt="Logo" /> */}
+                </a>
+              </div>
             </div>
-          </li>
-          {/* End of Dropdown Menu */}
-
-          <li className="nav-item">
-            <a className="nav-link page-scroll" href="#contact">
-              CONTACT
-            </a>
-          </li>
-        </ul>
-
-        {/* Social Icons */}
-        <span className="nav-item social-icons">
-          <span className="fa-stack">
-            <a href="#your-link">
-              <i className="fas fa-circle fa-stack-2x"></i>
-              <i className="fab fa-facebook-f fa-stack-1x"></i>
-            </a>
-          </span>
-          <span className="fa-stack">
-            <a href="#your-link">
-              <i className="fas fa-circle fa-stack-2x"></i>
-              <i className="fab fa-twitter fa-stack-1x"></i>
-            </a>
-          </span>
-        </span>
+            <div className="col-lg-8 col-md-7 d-none d-lg-block">
+              <div className="row">
+                <div className="col-4">
+                  <div className="top-bar-item">
+                    <div className="top-bar-icon">
+                      <i className="flaticon-calendar"></i>
+                    </div>
+                    <div className="top-bar-text">
+                      <h3>Opening Hour</h3>
+                      <p>Mon - Fri, 8:00 - 9:00</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="top-bar-item">
+                    <div className="top-bar-icon">
+                      <i className="flaticon-call"></i>
+                    </div>
+                    <div className="top-bar-text">
+                      <h3>Call Us</h3>
+                      <p>+012 345 6789</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="top-bar-item">
+                    <div className="top-bar-icon">
+                      <i className="flaticon-send-mail"></i>
+                    </div>
+                    <div className="top-bar-text">
+                      <h3>Email Us</h3>
+                      <p>info@example.com</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </nav>
+      {/* <!-- Top Bar End --> */}
+
+      {/* <!-- Nav Bar Start --> */}
+      <div className="nav-bar">
+        <div className="container-fluid">
+          <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a href="#" className="navbar-brand">
+              MENU
+            </a>
+            <button
+              type="button"
+              className="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#navbarCollapse"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+              className="collapse navbar-collapse justify-content-between"
+              id="navbarCollapse"
+            >
+              <div className="navbar-nav mr-auto">
+                <a className="nav-item nav-link active">Home</a>
+                <a className="nav-item nav-link">About</a>
+                <a className="nav-item nav-link">Service</a>
+                <a className="nav-item nav-link">Team</a>
+                <a className="nav-item nav-link">Project</a>
+                <div className="nav-item dropdown">
+                  <a
+                    href="#"
+                    className="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                  >
+                    Pages
+                  </a>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item">Blog Page</a>
+                    <a className="dropdown-item">Single Page</a>
+                  </div>
+                </div>
+                <a className="nav-item nav-link">Contact</a>
+              </div>
+              <div className="ml-auto d-flex gap-2">
+                <Link
+                  className="btn btn-outline-light"
+                  to={""}
+                  onClick={Logout}
+                >
+                  Logout
+                </Link>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
   );
 }
 

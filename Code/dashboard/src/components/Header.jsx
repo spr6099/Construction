@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../config";
 
 function Header() {
+  const { user, setuser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  // console.log(user);
+
+  const Logout = () => {
+    sessionStorage.clear();
+    setuser("");
+    navigate("/");
+  };
   return (
     <div>
       {" "}
@@ -228,11 +240,16 @@ function Header() {
                 <div className="navbar-profile">
                   <img
                     className="img-xs rounded-circle"
-                    src="/assets/images/faces/face15.jpg"
+                    // src="/assets/images/faces/face15.jpg"
+                    src={
+                      user?.profileImg
+                        ? `${baseUrl}/uploads/${user.profileImg}`
+                        : "/assets/images/faces/face15.jpg"
+                    }
                     alt=""
                   />
                   <p className="mb-0 d-none d-sm-block navbar-profile-name">
-                    Henry Klein
+                    {user?.name}
                   </p>
                   <i className="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
@@ -254,7 +271,7 @@ function Header() {
                   </div>
                 </a>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item preview-item" href="/#">
+                <a className="dropdown-item preview-item" onClick={Logout}>
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
                       <i className="mdi mdi-logout text-danger"></i>

@@ -1,978 +1,833 @@
-import React, { useEffect, useState } from "react";
-import Swiper from "swiper/bundle";
-import "swiper/css/bundle";
-import Register from "../components/Register";
-import Header from "../components/Header";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
+import Register from "../components/Register";
+import { AuthContext } from "../context/Authcontext";
 
 function LandingPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const [login, setlogin] = useState(false);
-
+  const [isRegister, setisRegister] = useState(true);
+  const { user } = useContext(AuthContext);
+  const registerRef = useRef(null);
+  const navigate = useNavigate();
   useEffect(() => {
-    imageSwipper();
-    headerScroll();
+    if (user?.role === "user") {
+      navigate("/user/dashboard");
+    }
   }, []);
 
-  const imageSwipper = () => {
-    new Swiper(".image-slider-1", {
-      loop: true,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      slidesPerView: 1,
-      spaceBetween: 20,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-    });
-    new Swiper(".text-slider", {
-      loop: true,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      slidesPerView: 1,
-      spaceBetween: 20,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-    });
-  };
-
-  const headerScroll = () => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  };
-  console.log(login);
-
   return (
-    <div>
-      <div data-spy="scroll" data-target=".fixed-top">
-        {/* Preloader */}
-        <div className="spinner">
-          <div className="bounce1"></div>
-          <div className="bounce2"></div>
-          <div className="bounce3"></div>
-        </div>
-        {/* End of preloader */}
+    <div className="wrapper">
+      {/* <!-- Top Bar Start --> */}
 
-        {/* Navigation */}
-        {/* <nav className="navbar navbar-expand-lg navbar-custom navbar-dark navbar-custom fixed-top"> */}
-        <Header isScrolled={isScrolled} logins={login} setlogins={setlogin} />
-
-        <header id="header" className="header">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="text-container">
-                  <div className="countdown">
-                    <span id="clock"></span>
-                  </div>
-                  <h1>SEO Training Course</h1>
-                  <p className="p-large">
-                    Do you feel like you're doing a lot of guess work when it
-                    comes to SEO for your website? Take the SEO training course
-                    to change that
-                  </p>
-                  <a className="btn-solid-lg page-scroll" href="#register">
-                    REGISTER
-                  </a>
-                  <a className="btn-outline-lg page-scroll" href="#instructor">
-                    DISCOVER
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Image Slider */}
-          <div className="outer-container">
-            <div className="slider-container">
-              <div className="swiper-container image-slider-1">
-                <div className="swiper-wrapper">
-                  {/* Slide 1 */}
-                  <div className="swiper-slide">
-                    <img
-                      className="img-fluid"
-                      src="/assets/images/details-slide-1.jpg"
-                      alt="alternative"
-                    />
-                  </div>
-                  {/* Slide 2 */}
-                  <div className="swiper-slide">
-                    <img
-                      className="img-fluid"
-                      src="/assets/images/details-slide-2.jpg"
-                      alt="alternative"
-                    />
-                  </div>
-                  {/* Slide 3 */}
-                  <div className="swiper-slide">
-                    <img
-                      className="img-fluid"
-                      src="/assets/images/details-slide-3.jpg"
-                      alt="alternative"
-                    />
-                  </div>
-                </div>
-
-                {/* Navigation Arrows */}
-                <div className="swiper-button-next "></div>
-                <div className="swiper-button-prev"></div>
-              </div>
-            </div>
-          </div>
-        </header>
-        <div id="register" className="form-1">
-          <div className="container">
-            <div className="row">
-              {/* Left Text */}
-              <div className="col-lg-6">
-                <div className="text-container">
-                  <h2>Register Using The Form</h2>
-                  <p>
-                    It's easy to register for the course, just fill out the form
-                    and click submit. Then you will be registered for one of the
-                    best SEO training courses in the industry
-                  </p>
-                  <ul className="list-unstyled li-space-lg">
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <strong>Your information</strong> is required to
-                        complete the registration
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <strong>It's safe with us</strong> and will not be used
-                        for marketing
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <strong>You will receive</strong> a confirmation email
-                        in less than 24h
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Right Form */}
-              <div className="col-lg-6">{login ? <Login /> : <Register />}</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="slider-1">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <p className="p-small">FEATURED IN</p>
-
-                {/* Image Slider */}
-                <div className="slider-container">
-                  <div className="swiper-container image-slider-2">
-                    <div className="swiper-wrapper">
-                      <div className="swiper-slide">
-                        <img
-                          className="img-fluid"
-                          src="/assets/images/customer-logo-1.png"
-                          alt="alternative"
-                        />
-                      </div>
-                      <div className="swiper-slide">
-                        <img
-                          className="img-fluid"
-                          src="/assets/images/customer-logo-2.png"
-                          alt="alternative"
-                        />
-                      </div>
-                      <div className="swiper-slide">
-                        <img
-                          className="img-fluid"
-                          src="/assets/images/customer-logo-3.png"
-                          alt="alternative"
-                        />
-                      </div>
-                      <div className="swiper-slide">
-                        <img
-                          className="img-fluid"
-                          src="/assets/images/customer-logo-4.png"
-                          alt="alternative"
-                        />
-                      </div>
-                      <div className="swiper-slide">
-                        <img
-                          className="img-fluid"
-                          src="/assets/images/customer-logo-5.png"
-                          alt="alternative"
-                        />
-                      </div>
-                      <div className="swiper-slide">
-                        <img
-                          className="img-fluid"
-                          src="/assets/images/customer-logo-6.png"
-                          alt="alternative"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* end of image slider */}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="instructor" className="basic-1">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <img
-                  className="img-fluid"
-                  src="/assets/images/instructor.jpg"
-                  alt="alternative"
-                />
-              </div>
-              <div className="col-lg-6">
-                <div className="text-container">
-                  <h2>I’m Garry Your Trainer</h2>
-                  <p>
-                    Hi everybody! I am Garry and I will be your main instructor
-                    during the SEO training course. I have more than 10 years
-                    experience in SEO and I am very passionate about this field.
-                    Register for the course and let's meet.
-                  </p>
-                  <p>
-                    Teaching students all about the best SEO techniques is
-                    something I love to do as a full-time job.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="description" className="basic-2">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h2>What Will You Learn In Our SEO Focused Training Course</h2>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-6">
-                <ul className="list-unstyled li-space-lg first">
-                  <li className="media">
-                    <i className="bullet">1</i>
-                    <div className="media-body">
-                      <h4>Optimizing your site for mobile devices</h4>
-                      <p>
-                        One of the keys of great SEO is having a mobile friendly
-                        website which works smoothly on all devices
-                      </p>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <i className="bullet">2</i>
-                    <div className="media-body">
-                      <h4>Understand how users search</h4>
-                      <p>
-                        It's not enough anymore to find relevant industry
-                        keywords and write huge amounts of content
-                      </p>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <i className="bullet">3</i>
-                    <div className="media-body">
-                      <h4>Write for humans optimize for engines</h4>
-                      <p>
-                        Write well structured and understandable articles not
-                        just a mix of paragraphs that contain keywords
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-lg-6">
-                <ul className="list-unstyled li-space-lg second">
-                  <li className="media">
-                    <i className="bullet">4</i>
-                    <div className="media-body">
-                      <h4>Analyse your existing search traffic</h4>
-                      <p>
-                        A good action plan comes out of understanding where your
-                        current position is and the environment
-                      </p>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <i className="bullet">5</i>
-                    <div className="media-body">
-                      <h4>Keep updated with the latest changes</h4>
-                      <p>
-                        Google changes its search indexing algorithm twice a
-                        year so it's important to stay updated with news
-                      </p>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <i className="bullet">6</i>
-                    <div className="media-body">
-                      <h4>Learn the most important ranking factors</h4>
-                      <p>
-                        Learn which are the most important search engine ranking
-                        factors and optimize your website accordingly
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="basic-3">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="text-container">
-                  <h2>Who Should Attend The SEO Training Course</h2>
-                  <p>
-                    This course is for anyone passionate about the web and
-                    especially fit for those seeking to improve their online
-                    presence for company websites and blogs
-                  </p>
-                  <a
-                    className="btn-solid-reg popup-with-move-anim"
-                    href="#details-lightbox"
-                  >
-                    LIGHTBOX
-                  </a>
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <img
-                  className="img-fluid"
-                  src="/assets/images/students.jpg"
-                  alt="alternative"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          id="details-lightbox"
-          className="lightbox-basic zoom-anim-dialog mfp-hide"
-        >
-          <div className="container">
-            <div className="row">
-              <button
-                title="Close (Esc)"
-                type="button"
-                className="mfp-close x-button"
-              >
-                ×
-              </button>
-              <div className="col-lg-8">
-                <div className="image-container">
-                  <img
-                    className="img-fluid"
-                    src="/assets/images/details-lightbox.jpg"
-                    alt="alternative"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <h3>SEO Training Course</h3>
-                <hr />
-                <h5>For everybody</h5>
-                <p>
-                  The training course is dedicated to anyone passionate about
-                  the web and in need of improving their current online
-                  presence.
-                </p>
-                <ul className="list-unstyled li-space-lg">
-                  <li className="media">
-                    <i className="fas fa-square"></i>
-                    <div className="media-body">Link building framework</div>
-                  </li>
-                  <li className="media">
-                    <i className="fas fa-square"></i>
-                    <div className="media-body">Know your current position</div>
-                  </li>
-                  <li className="media">
-                    <i className="fas fa-square"></i>
-                    <div className="media-body">Partnering with blogs</div>
-                  </li>
-                  <li className="media">
-                    <i className="fas fa-square"></i>
-                    <div className="media-body">Naming your images</div>
-                  </li>
-                  <li className="media">
-                    <i className="fas fa-square"></i>
-                    <div className="media-body">Creating good sitemaps</div>
-                  </li>
-                  <li className="media">
-                    <i className="fas fa-square"></i>
-                    <div className="media-body">Writing for humans</div>
-                  </li>
-                </ul>
-                <a
-                  className="btn-solid-reg mfp-close page-scroll"
-                  href="#register"
-                >
-                  SIGN UP
-                </a>{" "}
-                <a
-                  className="btn-outline-reg mfp-close as-button"
-                  href="#screenshots"
-                >
-                  BACK
+      <div className="top-bar">
+        <div className="container-fluid">
+          <div className="row align-items-center">
+            <div className="col-lg-4 col-md-12">
+              <div className="logo">
+                <a>
+                  <h1>Builderz</h1>
+                  {/* <img src="img/logo.jpg" alt="Logo" /> */}
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="basic-4">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h2>Course Video Presentation</h2>
-
-                {/* Video Preview */}
-                <div className="image-container">
-                  <div className="video-wrapper">
-                    <a
-                      className="popup-youtube"
-                      href="https://www.youtube.com/watch?v=fLCjQJCekTs"
-                      data-effect="fadeIn"
-                    >
-                      <img
-                        className="img-fluid"
-                        src="/assets/images/video.jpg"
-                        alt="alternative"
-                      />
-                      <span className="video-play-button">
-                        <span></span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-                {/* end of video preview */}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="cards">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h2>Key Takeaways</h2>
-                <p className="p-heading">
-                  Here are the main topics that will be covered in the SEO
-                  training course. They cover all the basics of SEO and even
-                  some advanced techniques that will help you along the way
-                </p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-12">
-                {/* Card */}
-                <div className="card">
-                  <div className="card-image">
-                    <i className="fas fa-atom"></i>
-                  </div>
-                  <div className="card-body">
-                    <h4 className="card-title">Position Analysis</h4>
-                    <p>
-                      Understand where your website is currently positioned in
-                      search engine queries
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div className="card">
-                  <div className="card-image">
-                    <i className="fas fa-key"></i>
-                  </div>
-                  <div className="card-body">
-                    <h4 className="card-title">Keyword Planning</h4>
-                    <p>
-                      Find the best relevant keywords that fit your website SEO
-                      strategy in the long run
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div className="card">
-                  <div className="card-image">
-                    <i className="fas fa-newspaper"></i>
-                  </div>
-                  <div className="card-body">
-                    <h4 className="card-title">Writing Articles</h4>
-                    <p>
-                      How to plan your content strategy and write articles that
-                      are optimized for SEO
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div className="card">
-                  <div className="card-image">
-                    <i className="fas fa-link"></i>
-                  </div>
-                  <div className="card-body">
-                    <h4 className="card-title">Gathering Backlinks</h4>
-                    <p>
-                      Backlinks are vital for SEO and we'll teach you everything
-                      there is to know about them
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div className="card">
-                  <div className="card-image">
-                    <i className="far fa-handshake"></i>
-                  </div>
-                  <div className="card-body">
-                    <h4 className="card-title">Build Partnerships</h4>
-                    <p>
-                      Partnerships will help you establish your website or blog
-                      as an authority in your field
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div className="card">
-                  <div className="card-image">
-                    <i className="fas fa-chart-bar"></i>
-                  </div>
-                  <div className="card-body">
-                    <h4 className="card-title">Evaluate Actions</h4>
-                    <p>
-                      Learn how to use the right analytics tools to evaluate
-                      your SEO actions and improve them
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Testimonials */}
-        <div className="slider-2">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h3>
-                  Check out our attendees testimonials from previous editions of
-                  the SEO Training
-                </h3>
-
-                {/* Text Slider */}
-                <div className="slider-container">
-                  <div className="swiper-container text-slider">
-                    <div className="swiper-wrapper">
-                      {/* Slide */}
-                      {[
-                        {
-                          img: "/assets/images/testimonial-1.jpg",
-                          text: "I took the SEO training course about a year ago and I am very happy. It taught me all the basics of search engine optimization and some tricks.",
-                          author: "Jude Thorn - Online Marketer",
-                        },
-                        {
-                          img: "/assets/images/testimonial-2.jpg",
-                          text: "Awesome course for the money. I never thought I could learn so much about search engine optimization in such a short amount of time. Highly recommend.",
-                          author: "Roy Smith - Developer",
-                        },
-                        {
-                          img: "/assets/images/testimonial-3.jpg",
-                          text: "Corso is the best SEO training course in the market. It teaches you all the basics but it also adds value with some advanced tips & tricks the are great.",
-                          author: "Martin Singer - Online Marketer",
-                        },
-                        {
-                          img: "/assets/images/testimonial-4.jpg",
-                          text: "Learning SEO can actually be fun. I attended Corso SEO training and I had a great time with my peer students and the instructors. Highly recommended course.",
-                          author: "Ronda Louis - Business Owner",
-                        },
-                      ].map((item, index) => (
-                        <div className="swiper-slide" key={index}>
-                          <div className="image-wrapper">
-                            <img
-                              className="img-fluid"
-                              src={item.img}
-                              alt="alternative"
-                            />
-                          </div>
-                          <div className="text-wrapper">
-                            <div className="testimonial-text">{item.text}</div>
-                            <div className="testimonial-author">
-                              {item.author}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+            <div className="col-lg-8 col-md-7 d-none d-lg-block">
+              <div className="row">
+                <div className="col-4">
+                  <div className="top-bar-item">
+                    <div className="top-bar-icon">
+                      <i className="flaticon-calendar"></i>
                     </div>
-
-                    {/* Add Arrows */}
-                    <div className="swiper-button-next"></div>
-                    <div className="swiper-button-prev"></div>
+                    <div className="top-bar-text">
+                      <h3>Opening Hour</h3>
+                      <p>Mon - Fri, 8:00 - 9:00</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Date */}
-
-        <div id="date" className="basic-5">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="text-container">
-                  <h2>December 22nd 2020 at Innovation Hub Space</h2>
-                  <p>
-                    Our mission is to help people do better SEO. The team is
-                    excited to invite you to the next SEO Training Course
-                    session which undoubtedly will provide you with the
-                    necessary skills to improve your online presence. Fill out
-                    the form to register and we'll contact you in less than 24h
-                  </p>
-                  <a className="btn-solid-lg page-scroll" href="#register">
-                    REGISTER
-                  </a>
+                <div className="col-4">
+                  <div className="top-bar-item">
+                    <div className="top-bar-icon">
+                      <i className="flaticon-call"></i>
+                    </div>
+                    <div className="top-bar-text">
+                      <h3>Call Us</h3>
+                      <p>+012 345 6789</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Newsletter */}
-        <div className="form-2">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h3>
-                  Stay updated with news by subscribing to our newsletter and
-                  our social channels
-                </h3>
-
-                {/* Newsletter Form */}
-                <form
-                  id="newsletterForm"
-                  data-toggle="validator"
-                  data-focus="false"
-                >
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      className="form-control-input"
-                      id="nemail"
-                      required
-                    />
-                    <label className="label-control" htmlFor="nemail">
-                      Email
-                    </label>
-                    <div className="help-block with-errors"></div>
+                <div className="col-4">
+                  <div className="top-bar-item">
+                    <div className="top-bar-icon">
+                      <i className="flaticon-send-mail"></i>
+                    </div>
+                    <div className="top-bar-text">
+                      <h3>Email Us</h3>
+                      <p>info@example.com</p>
+                    </div>
                   </div>
-                  <div className="form-group checkbox">
-                    <input
-                      type="checkbox"
-                      id="nterms"
-                      value="Agreed-to-Terms"
-                      required
-                    />
-                    I've read and agree to Corso's written{" "}
-                    <a href="privacy-policy.html">Privacy Policy</a> and{" "}
-                    <a href="terms-conditions.html">Terms Conditions</a>
-                    <div className="help-block with-errors"></div>
-                  </div>
-                  <div className="form-group">
-                    <button
-                      type="submit"
-                      className="form-control-submit-button"
-                    >
-                      SIGN UP
-                    </button>
-                  </div>
-                  <div className="form-message">
-                    <div
-                      id="nmsgSubmit"
-                      className="h3 text-center hidden"
-                    ></div>
-                  </div>
-                </form>
-
-                {/* Social Links */}
-                <div className="icon-container">
-                  {[
-                    "facebook-f",
-                    "twitter",
-                    "pinterest-p",
-                    "instagram",
-                    "linkedin-in",
-                  ].map((icon, i) => (
-                    <span className="fa-stack" key={i}>
-                      <a href="#your-link">
-                        <i className="fas fa-circle fa-stack-2x"></i>
-                        <i className={`fab fa-${icon} fa-stack-1x`}></i>
-                      </a>
-                    </span>
-                  ))}
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="contact" className="form-3">
-          <div className="container">
-            <div className="row">
-              {/* Contact Info */}
-              <div className="col-lg-6">
-                <div className="text-container">
-                  <h2>Contact Details</h2>
-                  <p>
-                    For registration questions please get in touch using the
-                    contact details below. For any questions use the form.
-                  </p>
-                  <h3>Main Office Location</h3>
-                  <ul className="list-unstyled li-space-lg">
-                    <li className="media">
-                      <i className="fas fa-map-marker-alt"></i>
-                      <div className="media-body">
-                        22 Innovative, San Francisco, CA 94043, US
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-mobile-alt"></i>
-                      <div className="media-body">
-                        +44 68 554 332,&nbsp;&nbsp;
-                        <i className="fas fa-mobile-alt"></i>&nbsp; +44 31 276
-                        112
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-envelope"></i>
-                      <div className="media-body">
-                        <a
-                          className="light-gray"
-                          href="mailto:contact@zigo.com"
-                        >
-                          contact@zigo.com
-                        </a>{" "}
-                        <i className="fas fa-globe"></i>
-                        <a className="light-gray" href="#your-link">
-                          www.zigo.com
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Contact Form */}
-              <div className="col-lg-6">
-                <form
-                  id="contactForm"
-                  data-toggle="validator"
-                  data-focus="false"
-                >
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control-input"
-                      id="cname"
-                      required
-                    />
-                    <label className="label-control" htmlFor="cname">
-                      Name
-                    </label>
-                    <div className="help-block with-errors"></div>
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="email"
-                      className="form-control-input"
-                      id="cemail"
-                      required
-                    />
-                    <label className="label-control" htmlFor="cemail">
-                      Email
-                    </label>
-                    <div className="help-block with-errors"></div>
-                  </div>
-                  <div className="form-group">
-                    <textarea
-                      className="form-control-textarea"
-                      id="cmessage"
-                      required
-                    ></textarea>
-                    <label className="label-control" htmlFor="cmessage">
-                      Your message
-                    </label>
-                    <div className="help-block with-errors"></div>
-                  </div>
-                  <div className="form-group checkbox">
-                    <input
-                      type="checkbox"
-                      id="cterms"
-                      value="Agreed-to-Terms"
-                      required
-                    />
-                    I have read and agree to Corso's stated{" "}
-                    <a href="privacy-policy.html">Privacy Policy</a> and{" "}
-                    <a href="terms-conditions.html">Terms Conditions</a>
-                    <div className="help-block with-errors"></div>
-                  </div>
-                  <div className="form-group">
-                    <button
-                      type="submit"
-                      className="form-control-submit-button"
-                    >
-                      SUBMIT
-                    </button>
-                  </div>
-                  <div className="form-message">
-                    <div
-                      id="cmsgSubmit"
-                      className="h3 text-center hidden"
-                    ></div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3">
-                <div className="footer-col first">
-                  <h5>About Corso</h5>
-                  <p className="p-small">
-                    We're passionate about teaching people how to do better SEO
-                    for their online presence
-                  </p>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="footer-col second">
-                  <h5>Links</h5>
-                  <ul className="list-unstyled li-space-lg p-small">
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <a href="terms-conditions.html">Terms & Conditions</a>
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <a href="privacy-policy.html">Privacy Policy</a>
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <a href="article-details.html">Article Details</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="footer-col third">
-                  <h5>Links</h5>
-                  <ul className="list-unstyled li-space-lg p-small">
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <a href="article-details.html">Article Details</a>
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <a href="terms-conditions.html">Terms & Conditions</a>
-                      </div>
-                    </li>
-                    <li className="media">
-                      <i className="fas fa-square"></i>
-                      <div className="media-body">
-                        <a href="privacy-policy.html">Privacy Policy</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="footer-col fourth">
-                  <h5>Social Media</h5>
-                  <p className="p-small">For news & updates follow us</p>
-                  <a href="#your-link">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#your-link">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                  <a href="#your-link">
-                    <i className="fab fa-pinterest-p"></i>
-                  </a>
-                  <a href="#your-link">
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                  <a href="#your-link">
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                  <a href="#your-link">
-                    <i className="fab fa-youtube"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="copyright">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <p className="p-small">
-                  Copyright © 2020 <a href="https://inovatik.com">Inovatik</a> -
-                  All rights reserved
-                </p>
-                <p className="p-small">
-                  Distributed By:{" "}
-                  <a href="https://themewagon.com" target="_blank">
-                    ThemeWagon
-                  </a>
-                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {/* <!-- Top Bar End --> */}
+
+      {/* <!-- Nav Bar Start --> */}
+      <div className="nav-bar">
+        <div className="container-fluid">
+          <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a href="#" className="navbar-brand">
+              MENU
+            </a>
+            <button
+              type="button"
+              className="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#navbarCollapse"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+              className="collapse navbar-collapse justify-content-between"
+              id="navbarCollapse"
+            >
+              <div className="navbar-nav mr-auto">
+                <a className="nav-item nav-link active">Home</a>
+                <a className="nav-item nav-link">About</a>
+                <a className="nav-item nav-link">Service</a>
+                <a className="nav-item nav-link">Team</a>
+                <a className="nav-item nav-link">Project</a>
+                <div className="nav-item dropdown">
+                  <a
+                    href="#"
+                    className="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                  >
+                    Pages
+                  </a>
+                  <div className="dropdown-menu">
+                    <a  className="dropdown-item">
+                      Blog Page
+                    </a>
+                    <a  className="dropdown-item">
+                      Single Page
+                    </a>
+                  </div>
+                </div>
+                <a  className="nav-item nav-link">
+                  Contact
+                </a>
+              </div>
+              <div className="ml-auto d-flex gap-2">
+                <Link
+                  className="btn btn-outline-light"
+                  to={""}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // setShowRegister(true);
+                    registerRef.current?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Register
+                </Link>
+
+                <a className="btn" href="#">
+                  Get A Quote
+                </a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      {/* Nav Bar End --> */}
+
+      {/* <!-- Carousel Start --> */}
+
+      <div id="carousel" className="carousel slide" data-ride="carousel">
+        <ol className="carousel-indicators">
+          <li data-target="#carousel" data-slide-to="0" className="active"></li>
+          <li data-target="#carousel" data-slide-to="1"></li>
+          <li data-target="#carousel" data-slide-to="2"></li>
+        </ol>
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img src="img/carousel-1.jpg" alt="Carousel Image" />
+            <div className="carousel-caption">
+              <p className="animated fadeInRight">We Are Professional</p>
+              <h1 className="animated fadeInLeft">For Your Dream Project</h1>
+              <a
+                className="btn animated fadeInUp"
+                // href="https://htmlcodex.com/construction-company-website-template"
+              >
+                Get A Quote
+              </a>
+            </div>
+          </div>
+
+          <div className="carousel-item">
+            <img src="img/carousel-2.jpg" alt="Carousel Image" />
+            <div className="carousel-caption">
+              <p className="animated fadeInRight">Professional Builder</p>
+              <h1 className="animated fadeInLeft">We Build Your Home</h1>
+              <a
+                className="btn animated fadeInUp"
+                href="https://htmlcodex.com/construction-company-website-template"
+              >
+                Get A Quote
+              </a>
+            </div>
+          </div>
+
+          <div className="carousel-item">
+            <img src="img/carousel-3.jpg" alt="Carousel Image" />
+            <div className="carousel-caption">
+              <p className="animated fadeInRight">We Are Trusted</p>
+              <h1 className="animated fadeInLeft">For Your Dream Home</h1>
+              <a
+                className="btn animated fadeInUp"
+                href="https://htmlcodex.com/construction-company-website-template"
+              >
+                Get A Quote
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a
+          className="carousel-control-prev"
+          href="#carousel"
+          role="button"
+          data-slide="prev"
+        >
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="sr-only">Previous</span>
+        </a>
+        <a
+          className="carousel-control-next"
+          href="#carousel"
+          role="button"
+          data-slide="next"
+        >
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="sr-only">Next</span>
+        </a>
+      </div>
+
+      {/* <!-- Carousel End --> */}
+
+      {/* <!-- Feature Start--> */}
+
+      <div className="feature wow fadeInUp" data-wow-delay="0.1s">
+        <div className="container-fluid">
+          <div className="row align-items-center">
+            <div className="col-lg-4 col-md-12">
+              <div className="feature-item">
+                <div className="feature-icon">
+                  <i className="flaticon-worker"></i>
+                </div>
+                <div className="feature-text">
+                  <h3>Expert Worker</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare
+                    velit non
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-12">
+              <div className="feature-item">
+                <div className="feature-icon">
+                  <i className="flaticon-building"></i>
+                </div>
+                <div className="feature-text">
+                  <h3>Quality Work</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare
+                    velit non
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-12">
+              <div className="feature-item">
+                <div className="feature-icon">
+                  <i className="flaticon-call"></i>
+                </div>
+                <div className="feature-text">
+                  <h3>24/7 Support</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare
+                    velit non
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Feature End-->
+            <!-- About Start --> */}
+
+      {/* About Section */}
+      <div className="about wow fadeInUp" data-wow-delay="0.1s">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-5 col-md-6">
+              <div className="about-img">
+                <img src="img/about.jpg" alt="Image" />
+              </div>
+            </div>
+
+            <div className="col-lg-7 col-md-6">
+              <div className="section-header text-left">
+                <p>Welcome to Builderz</p>
+                <h2>25 Years Experience</h2>
+              </div>
+              <div className="about-text">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Phasellus nec pretium mi. Curabitur facilisis ornare velit non
+                  vulputate. Aliquam metus tortor, auctor id gravida
+                  condimentum, viverra quis sem.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Phasellus nec pretium mi. Curabitur facilisis ornare velit non
+                  vulputate. Aliquam metus tortor, auctor id gravida
+                  condimentum, viverra quis sem. Curabitur non nisl nec nisi
+                  scelerisque maximus. Aenean consectetur convallis porttitor.
+                  Aliquam interdum at lacus non blandit.
+                </p>
+                <a className="btn" href="">
+                  Learn More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="register-1" ref={registerRef} data-wow-delay="0.1s">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-5 col-md-6">
+              {" "}
+              <div className="text-container">
+                <h2>Register Using The Form</h2>
+                <p>
+                  It's easy to register for the course, just fill out the form
+                  and click submit. Then you will be registered for one of the
+                  best SEO training courses in the industry
+                </p>
+                <ul className="list-unstyled li-space-lg">
+                  <li className="media">
+                    <i className="fas fa-square"></i>
+                    <div className="media-body">
+                      <strong>Your information</strong> is required to complete
+                      the registration
+                    </div>
+                  </li>
+                  <li className="media">
+                    <i className="fas fa-square"></i>
+                    <div className="media-body">
+                      <strong>It's safe with us</strong> and will not be used
+                      for marketing
+                    </div>
+                  </li>
+                  <li className="media">
+                    <i className="fas fa-square"></i>
+                    <div className="media-body">
+                      <strong>You will receive</strong> a confirmation email in
+                      less than 24h
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-7 col-md-6">
+              {/* Toggle Component */}
+              {isRegister ? <Register /> : <Login />}
+
+              {/* Toggle Links */}
+              <div style={{ marginTop: "1rem" }}>
+                {isRegister ? (
+                  <span>
+                    Already have an account?{" "}
+                    <button
+                      onClick={() => setisRegister(false)}
+                      className="btn btn-link p-0"
+                    >
+                      Click to Login
+                    </button>
+                  </span>
+                ) : (
+                  <span>
+                    Don't have an account?{" "}
+                    <button
+                      onClick={() => setisRegister(true)}
+                      className="btn btn-link p-0"
+                    >
+                      Click to Register
+                    </button>
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- About End -->
+<!-- Fact Start --> */}
+
+      <div className="fact">
+        <div className="container-fluid">
+          <div className="row counters">
+            <div className="col-md-6 fact-left wow slideInLeft">
+              <div className="row">
+                <div className="col-6">
+                  <div className="fact-icon">
+                    <i className="flaticon-worker"></i>
+                  </div>
+                  <div className="fact-text">
+                    <h2 data-toggle="counter-up">109</h2>
+                    <p>Expert Workers</p>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="fact-icon">
+                    <i className="flaticon-building"></i>
+                  </div>
+                  <div className="fact-text">
+                    <h2 data-toggle="counter-up">485</h2>
+                    <p>Happy Clients</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 fact-right wow slideInRight">
+              <div className="row">
+                <div className="col-6">
+                  <div className="fact-icon">
+                    <i className="flaticon-address"></i>
+                  </div>
+                  <div className="fact-text">
+                    <h2 data-toggle="counter-up">789</h2>
+                    <p>Completed Projects</p>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="fact-icon">
+                    <i className="flaticon-crane"></i>
+                  </div>
+                  <div className="fact-text">
+                    <h2 data-toggle="counter-up">890</h2>
+                    <p>Running Projects</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Fact End -->
+<!-- Service Start --> */}
+
+      <div className="service">
+        <div className="container">
+          <div className="section-header text-center">
+            <p>Our Services</p>
+            <h2>We Provide Services</h2>
+          </div>
+          <div className="row">
+            {[
+              {
+                delay: "0.1s",
+                img: "img/service-1.jpg",
+                title: "Building Construction",
+              },
+              {
+                delay: "0.2s",
+                img: "img/service-2.jpg",
+                title: "House Renovation",
+              },
+              {
+                delay: "0.3s",
+                img: "img/service-3.jpg",
+                title: "Architecture Design",
+              },
+              {
+                delay: "0.4s",
+                img: "img/service-4.jpg",
+                title: "Interior Design",
+              },
+              {
+                delay: "0.5s",
+                img: "img/service-5.jpg",
+                title: "Fixing & Support",
+              },
+              {
+                delay: "0.6s",
+                img: "img/service-6.jpg",
+                title: "Painting",
+              },
+            ].map((service, idx) => (
+              <div
+                key={idx}
+                className="col-lg-4 col-md-6 wow fadeInUp"
+                data-wow-delay={service.delay}
+              >
+                <div className="service-item">
+                  <div className="service-img">
+                    <img src={service.img} alt="Image" />
+                    <div className="service-overlay">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Phasellus nec pretium mi. Curabitur facilisis ornare
+                        velit non vulputate. Aliquam metus tortor, auctor id
+                        gravida condimentum, viverra quis sem.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="service-text">
+                    <h3>{service.title}</h3>
+                    <a
+                      className="btn"
+                      href={service.img}
+                      data-lightbox="service"
+                    >
+                      +
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Service End -->
+            <!-- Video Start -- */}
+
+      <div className="video wow fadeIn" data-wow-delay="0.1s">
+        <div className="container">
+          <button
+            type="button"
+            className="btn-play"
+            data-toggle="modal"
+            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc"
+            data-target="#videoModal"
+          >
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="videoModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-body">
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              {/* 16:9 aspect ratio */}
+              <div className="embed-responsive embed-responsive-16by9">
+                <iframe
+                  className="embed-responsive-item"
+                  src=""
+                  id="video"
+                  allow="autoplay"
+                  allowFullScreen
+                  title="Video"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <!-- Video End -->
+<!-- Team Start --> */}
+
+      <div className="team">
+        <div className="container">
+          <div className="section-header text-center">
+            <p>Our Team</p>
+            <h2>Meet Our Engineer</h2>
+          </div>
+          <div className="row">
+            {[
+              {
+                img: "img/team-1.jpg",
+                name: "Adam Phillips",
+                role: "CEO & Founder",
+              },
+              {
+                img: "img/team-2.jpg",
+                name: "Dylan Adams",
+                role: "Civil Engineer",
+              },
+              {
+                img: "img/team-3.jpg",
+                name: "Jhon Doe",
+                role: "Interior Designer",
+              },
+              { img: "img/team-4.jpg", name: "Josh Dunn", role: "Painter" },
+            ].map((member, index) => (
+              <div
+                className="col-lg-3 col-md-6 wow fadeInUp"
+                data-wow-delay={`0.${index + 1}s`}
+                key={index}
+              >
+                <div className="team-item">
+                  <div className="team-img">
+                    <img src={member.img} alt="Team" />
+                  </div>
+                  <div className="team-text">
+                    <h2>{member.name}</h2>
+                    <p>{member.role}</p>
+                  </div>
+                  <div className="team-social">
+                    <a className="social-tw" href="#">
+                      <i className="fab fa-twitter"></i>
+                    </a>
+                    <a className="social-fb" href="#">
+                      <i className="fab fa-facebook-f"></i>
+                    </a>
+                    <a className="social-li" href="#">
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                    <a className="social-in" href="#">
+                      <i className="fab fa-instagram"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Team End -->
+            
+           <!-- FAQs Start --> */}
+      {/* <div className="faqs">
+        <div className="container">
+          <div className="section-header text-center">
+            <p>Frequently Asked Question</p>
+            <h2>You May Ask</h2>
+          </div>
+          <div className="row">
+            {[1, 2].map((colNum) => (
+              <div className="col-md-6" key={colNum}>
+                <div id={`accordion-${colNum}`}>
+                  {[...Array(5)].map((_, i) => {
+                    const id = (colNum - 1) * 5 + i + 1;
+                    return (
+                      <div
+                        className={`card wow ${
+                          colNum === 1 ? "fadeInLeft" : "fadeInRight"
+                        }`}
+                        data-wow-delay={`0.${i + 1}s`}
+                        key={id}
+                      >
+                        <div className="card-header">
+                          <a
+                            className="card-link collapsed"
+                            data-toggle="collapse"
+                            href={`#collapse${id}`}
+                          >
+                            Lorem ipsum dolor sit amet?
+                          </a>
+                        </div>
+                        <div
+                          id={`collapse${id}`}
+                          className="collapse"
+                          data-parent={`#accordion-${colNum}`}
+                        >
+                          <div className="card-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Phasellus nec pretium mi. Curabitur facilisis
+                            ornare velit non.
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div> */}
+      {/* <!-- FAQs End --> */}
+
+      {/* Blog Start */}
+      <div className="blog">
+        <div className="container">
+          <div className="section-header text-center">
+            <p>Latest Blog</p>
+            <h2>Latest From Our Blog</h2>
+          </div>
+          <div className="row">
+            {[1, 2, 3].map((num, idx) => (
+              <div
+                className={`col-lg-4 col-md-6 wow fadeInUp`}
+                data-wow-delay={idx === 0 || idx === 2 ? "0.2s" : undefined}
+                key={idx}
+              >
+                <div className="blog-item">
+                  <div className="blog-img">
+                    <img src={`img/blog-${num}.jpg`} alt="Image" />
+                  </div>
+                  <div className="blog-title">
+                    <h3>Lorem ipsum dolor sit</h3>
+                    <a className="btn" href="">
+                      +
+                    </a>
+                  </div>
+                  <div className="blog-meta">
+                    <p>
+                      By <a href="">Admin</a>
+                    </p>
+                    <p>
+                      In <a href="">Construction</a>
+                    </p>
+                  </div>
+                  <div className="blog-text">
+                    <p>
+                      Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi.
+                      Curabitur facilisis ornare velit non vulputate. Aliquam
+                      metus tortor
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* <!-- Blog End --> */}
+      {/* Footer Start */}
+      <div className="footer wow fadeIn" data-wow-delay="0.3s">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 col-lg-3">
+              <div className="footer-contact">
+                <h2>Office Contact</h2>
+                <p>
+                  <i className="fa fa-map-marker-alt" />
+                  123 Street, New York, USA
+                </p>
+                <p>
+                  <i className="fa fa-phone-alt" />
+                  +012 345 67890
+                </p>
+                <p>
+                  <i className="fa fa-envelope" />
+                  info@example.com
+                </p>
+                <div className="footer-social">
+                  <a href="">
+                    <i className="fab fa-twitter" />
+                  </a>
+                  <a href="">
+                    <i className="fab fa-facebook-f" />
+                  </a>
+                  <a href="">
+                    <i className="fab fa-youtube" />
+                  </a>
+                  <a href="">
+                    <i className="fab fa-instagram" />
+                  </a>
+                  <a href="">
+                    <i className="fab fa-linkedin-in" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-lg-3">
+              <div className="footer-link">
+                <h2>Services Areas</h2>
+                <a href="">Building Construction</a>
+                <a href="">House Renovation</a>
+                <a href="">Architecture Design</a>
+                <a href="">Interior Design</a>
+                <a href="">Painting</a>
+              </div>
+            </div>
+            <div className="col-md-6 col-lg-3">
+              <div className="footer-link">
+                <h2>Useful Pages</h2>
+                <a href="">About Us</a>
+                <a href="">Contact Us</a>
+                <a href="">Our Team</a>
+                <a href="">Projects</a>
+                <a href="">Testimonial</a>
+              </div>
+            </div>
+            <div className="col-md-6 col-lg-3">
+              <div className="newsletter">
+                <h2>Newsletter</h2>
+                <p>
+                  Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi.
+                  Curabitur facilisis ornare velit non vulpu
+                </p>
+                <div className="form">
+                  <input className="form-control" placeholder="Email here" />
+                  <button className="btn">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container footer-menu">
+          <div className="f-menu">
+            <a href="">Terms of use</a>
+            <a href="">Privacy policy</a>
+            <a href="">Cookies</a>
+            <a href="">Help</a>
+            <a href="">FQAs</a>
+          </div>
+        </div>
+        <div className="container copyright">
+          <div className="row">
+            <div className="col-md-6">
+              <p>
+                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p>
+                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <!-- Footer End --> */}
     </div>
   );
 }

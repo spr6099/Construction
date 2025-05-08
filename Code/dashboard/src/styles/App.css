@@ -1,0 +1,392 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+/* -------Login---- */
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 50vh; */
+  width: 100%;
+  padding: 0 10px;
+}
+
+.body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background: url("login-bg.jpg"), #000; */
+  background-position: center;
+  background-size: cover;
+}
+
+.wrapper {
+  width: 400px;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.input-field {
+  position: relative;
+  border-bottom: 2px solid #ccc;
+  margin: 15px 0;
+}
+
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.15s ease;
+}
+
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+}
+
+.forget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 35px 0;
+  color: #fff;
+}
+
+#remember {
+  accent-color: #fff;
+}
+
+.forget label {
+  display: flex;
+  align-items: center;
+}
+
+.forget label p {
+  margin-left: 8px;
+}
+
+.wrapper a {
+  color: #efefef;
+  text-decoration: none;
+}
+
+.wrapper a:hover {
+  text-decoration: underline;
+}
+
+.button {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.button:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.register {
+  text-align: center;
+  margin-top: 30px;
+  color: #fff;
+}
+
+/* Register */
+
+/* ===== Google Font Import - Poppins ===== */
+
+.containers {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 6px;
+  padding: 30px;
+  margin: 0 15px;
+  /* background-color: rgb(22, 17, 17); */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.containers header {
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  /* color: #333; */
+}
+.containers header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 3px;
+  width: 27px;
+  border-radius: 8px;
+  /* background-color: #4070f4; */
+}
+.containers form {
+  position: relative;
+  margin-top: 16px;
+  min-height: 490px;
+  /* background-color: hsl(0, 23%, 10%); */
+  overflow: hidden;
+}
+.containers form .form {
+  position: absolute;
+  /* background-color: #fff; */
+  transition: 0.3s ease;
+}
+.containers form .form.second {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
+}
+form.secActive .form.second {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+form.secActive .form.first {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+}
+.containers form .title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 6px 0;
+  /* color: #333; */
+}
+.containers form .fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+form .fields .input-fieldss {
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
+}
+.input-fieldss label {
+  font-size: 12px;
+  font-weight: 500;
+  /* color: #f5f1f1; */
+}
+.input-fieldss input,
+textarea,
+select {
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #f8f5f5;
+  background-color: #191c24;
+
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+.input-fieldss input :focus,
+.input-fieldss select:focus {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+.input-fieldss select,
+.input-fieldss input[type="date"] {
+  color: #faf6f6;
+}
+.input-fieldss input[type="date"]:valid {
+  color: #f4f0f0;
+}
+.containers form button,
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: #4070f4;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.btnDiv {
+  min-height: 300px;
+}
+.nextBtn:disabled {
+  background-color: #999; /* Greyed out background */
+  color: #666; /* Faded text */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.user-button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.user-button.active {
+  background-color: #d5700b;
+  color: white;
+  border-color: #007bff;
+}
+
+.containers form .btnText {
+  font-size: 14px;
+  font-weight: 400;
+}
+form button:hover {
+  background-color: #265df2;
+}
+form button i,
+form .backBtn i {
+  margin: 0 6px;
+}
+form .backBtn i {
+  transform: rotate(180deg);
+}
+form .buttons {
+  display: flex;
+  align-items: center;
+}
+form .buttons button,
+.backBtn {
+  margin-right: 14px;
+}
+
+.fade-img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 750px) {
+  .container form {
+    overflow-y: scroll;
+  }
+  .container form::-webkit-scrollbar {
+    display: none;
+  }
+  form .fields .input-fieldss {
+    width: calc(100% / 2 - 15px);
+  }
+}
+
+@media (max-width: 550px) {
+  form .fields .input-fieldss {
+    width: 100%;
+  }
+}
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.sidebar-container {
+  height: 100%;
+  max-width: 250px;
+}
+
+.main-content {
+  height: 100%;
+}
+
+/* Landing Page */
+
+.logins-container {
+  max-width: 1000px;
+  background-color: #1f1f2e;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* .login-left {
+  background: url('https://source.unsplash.com/600x800/?desert') center center/cover;
+  position: relative;
+} */
+
+/* .login-left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, rgba(0,0,0,0.6), rgba(0,0,0,0.7));
+} */
+
+/* .login-left-content {
+  position: relative;
+  z-index: 1;
+} */
+
+.btn-purple {
+  background-color: #7c3aed;
+  color: white;
+}
+
+/* .btn-purple:hover {
+  background-color: #6b21a8;
+} */
+.landing {
+  background-color: #121212;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bio-column {
+  white-space: normal !important; /* Ensures that the text wraps instead of staying on one line */
+}
